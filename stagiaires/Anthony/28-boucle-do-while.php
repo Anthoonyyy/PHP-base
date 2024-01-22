@@ -47,10 +47,11 @@ else{
     <p>Puis créez le menu pour passer d'une page à l'autre en utilisant la variable $_GET nommée 'pg'</p>
     <p>Exemple d'un lien valide : <a href="?pg=3">3</a></p>
     <?php
-    echo "Pour ce tableau de $nbPays pays, répartis par $nbPaysParPage pays par page,
+    echo "Pour ce tableau de $nbPays régions, répartis par $nbPaysParPage régions par page,
  vous obtiendrez $nbPages pages<br>";
     ?>
 <h2>Les régions de France</h2>
+
     <h4>Page
         <?php
         //initialisation de la variable de boucle
@@ -64,13 +65,22 @@ else{
 
         <?=$i?>
         <?php
-        //Sinon
-            else:
+       else:
+        if($i === 1):
+            ?>
+        <a href="?pg=<?=$i?>"><?=$i?></a> 
+        <?php
+            //Création du lien cliquable vers la racine du site 
+        
+ //Sinon (on est plus sur la page 1)
+       else:
+    //Si le lien à afficher est la page 1
                
                 //Création du lien cliquable
             ?>
-        <a href="?pg=<?=$i?>"><?=$i?>></a> 
+        <a href="?pg=<?=$i?>"><?=$i?></a> 
         <?php
+        endif;
         //fin du if
         endif;
         //incrémentation 
@@ -82,8 +92,40 @@ else{
     </h4>
 <p>Affichez ensuite la liste des régions suivant la variable $_GET nommée 'pg'</p>
     <hr>
+    <p>
+    <?php
+    $begin=($pageActu-1)*$nbPaysParPage;
+    $end = $begin + $nbPaysParPage;
+    $i=0;
+   do{
+    echo "$depFr[$begin] <br> ";
+    $begin++;
+   }
+   while($begin < $end && $begin < $nbPays);
 
+    ?>
+</p>
     <hr>
-    <h4>Ici la pagination</h4>
+    <?php
+  $i=1;
+  do{
+    if($pageActu === $i){
+        echo "$i - ";
+    }
+    elseif($i===1){
+        echo "<a href='28-boucle-do-while.php'>$i</a> - ";
+    }
+    else{
+        echo "<a href='?pg=$i'>$i</a> - ";
+    }
+ 
+      $i++;
+  }while($i <= $nbPages);
+  echo "</br>";
+ 
+ 
+    ?>
+   
+    </h4>
 </body>
 </html>
